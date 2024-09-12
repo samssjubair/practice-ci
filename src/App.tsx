@@ -5,13 +5,6 @@ import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
-  let b = "world";
-  const [a, setA] = useState("hello");
-
-  var ab = 1;
-  var cnt = 0;
-
-  console.log(b);
 
   return (
     <>
