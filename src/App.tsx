@@ -1,12 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-    var a = 1;
-    console.log(a);
+  const [count, setCount] = useState(0);
+  let b = "world";
+  const [a, setA] = useState("hello");
+
+  var ab = 1;
+  var cnt = 0;
+
+  console.log(b);
 
   return (
     <>
@@ -31,7 +36,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
