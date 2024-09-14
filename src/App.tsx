@@ -4,9 +4,6 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
-  const [isClicked, setIsClicked] = useState(false)
-
-  // const str = "Hello World";
   return (
     <>
       <h1>Vite + react</h1>
