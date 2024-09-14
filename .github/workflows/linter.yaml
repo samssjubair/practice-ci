@@ -33,4 +33,4 @@ jobs:
           git fetch origin main --depth=1
           CHANGED_FILES=$(git diff --name-only FETCH_HEAD HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.json')
           echo "$CHANGED_FILES"
-          eslint $CHANGED_FILES
+          npm run lint -- --fix $CHANGED_FILES
