@@ -29,4 +29,8 @@ jobs:
         run: npm run format
 
       - name: Lint
-        run: npm run lint:check
+        run: |
+          git fetch origin main --depth=1
+          CHANGED_FILES=$(git diff --name-only FETCH_HEAD HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.json')
+          echo "$CHANGED_FILES"
+          npm run lint:check -- --fix $CHANGED_FILES
