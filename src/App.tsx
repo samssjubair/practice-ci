@@ -7,7 +7,8 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    const url: string = import.meta.env.VITE_API_URL + "/posts";
+    fetch(url)
       .then((response) => response.json())
       .then((json) => setPosts(json));
   }, []);
