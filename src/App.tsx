@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Post from "./components/Post";
+import Button from "./components/Button";
 
 function App() {
   // const [count, setCount] = useState(0);
   const [posts, setPosts] = useState([]);
+
+  const printHello = () => {
+    return <>Hello</>;
+  };
 
   useEffect(() => {
     const url: string = import.meta.env.VITE_API_URL + "/posts";
@@ -15,7 +20,8 @@ function App() {
 
   return (
     <>
-      <h1>Notebook Post</h1>
+      <h1>{printHello()}</h1>
+      <Button action="add" />
 
       {posts.map((post: { id: number; title: string; body: string }) => (
         <Post key={post.id} post={post} />

@@ -35,3 +35,9 @@ codeQL is a static code analysis tool that can be used to analyze the code quali
 codeQL is free to use for public repositories, but it is not free for private repositories.
 
 To enable codeQL in your project, you need to create an account on github.com and create a new project. You will get a token that you can use to authenticate your project with codeQL.
+
+
+## install vitest
+
+https://www.youtube.com/watch?v=nvkRBHXIi2M
+
