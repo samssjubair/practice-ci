@@ -1,0 +1,23 @@
+name: Run tests
+
+on:
+  workflow_dispatch:
+    # to get the workflow to run manually using  a button in the GitHub UI
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ opened, reopened ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate required .env file
+        run: |
+          echo NODE_ENV=development >> .env
+      - name: Build containers
+        run: docker-compose build
+      - name: Run tests
+        run: docker-compose up --abort-on-container-exit test-runner
