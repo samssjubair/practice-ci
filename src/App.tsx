@@ -21,8 +21,8 @@ function App() {
   return (
     <>
       <h1>{printHello()}</h1>
+      <h2>I love Github action</h2>
       <Button action="add" />
-
       {posts.map((post: { id: number; title: string; body: string }) => (
         <Post key={post.id} post={post} />
       ))}
