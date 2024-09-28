@@ -12,24 +12,48 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
       - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests 
+        run: npm run test
+   
+	    
+      
 
-      # Install Docker Compose
-      - name: Install Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-      - name: Generate required .env file
-        run: |
-          echo NODE_ENV=development >> .env
+#     steps:
+#       - uses: actions/checkout@v3
 
-      # Build containers using Docker Compose
-      - name: Build containers
-        run: docker-compose build
+#       # Install Docker Compose
+#       - name: Install Docker Compose
+#         run: |
+#           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+#           sudo chmod +x /usr/local/bin/docker-compose
+#           docker-compose --version
 
-      # Run tests
-      - name: Run tests
-        run: docker-compose up --abort-on-container-exit test-runner
+#       - name: Generate required .env file
+#         run: |
+#           echo NODE_ENV=development >> .env
+
+#       # Build containers using Docker Compose
+#       - name: Build containers
+#         run: docker-compose build
+
+#       # Run tests
+#       - name: Run tests
+#         run: docker-compose up --abort-on-container-exit test-runner
