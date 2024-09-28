@@ -1,33 +1,27 @@
+# Base image for Node.js
 FROM node:18-alpine as base
 
+# Set working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-RUN npm install
+# Install dependencies, including dev dependencies (like Vitest)
+RUN npm install --include=dev
 
+# Copy the rest of the app files
 COPY . .
 
-# RUN adduser -u 1001 --disabled-password --gecos "" appuser && chown -R appuser /app
-# USER appuser
-
-FROM base as debugger
-
-RUN npm install --save-dev vitest
-
-CMD ["vitest", "--ui"]
+# Create a non-root user and give permissions
+RUN adduser -u 1001 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
 
 # Test runner image
 FROM base as test
 
-RUN npm install --save-dev vitest
+# Install Vitest if it's not already installed (if needed for specific cases)
+RUN npm install vitest --save-dev
 
 # Command to run tests
 CMD ["npm", "run", "test"]
-
-# Production image
-FROM base as prod
-
-RUN npm run build
-
-CMD ["npm", "run", "start"]
