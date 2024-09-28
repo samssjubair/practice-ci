@@ -10,8 +10,8 @@
     "lint:fix": "eslint src --fix",
     "preview": "vite preview",
     "format": "prettier --write ./src",
-    "test": "vitest --run --reporter verbose ./src",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest --coverage --run",
+    "test": "vitest"
   },
   "dependencies": {
     "eslint-config-prettier": "^9.1.0",
