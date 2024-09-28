@@ -14,10 +14,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: Generate required .env file
         run: |
           echo NODE_ENV=development >> .env
+
+      # Build containers using Docker Compose
       - name: Build containers
         run: docker-compose build
+
+      # Run tests
       - name: Run tests
         run: docker-compose up --abort-on-container-exit test-runner
