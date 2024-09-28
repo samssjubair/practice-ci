@@ -1,33 +1,52 @@
 name: Run tests
 
 on:
-  workflow_dispatch:    # to get the workflow to run manually using a button in the GitHub UI
+  workflow_dispatch: # to get the workflow to run manually using a button in the GitHub UI
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ opened, reopened ]
+    branches: [opened, reopened]
 
 jobs:
-  build:
+  unit-test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+        name: Checkout Repository
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: "npm"
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests 
-        run: npm run test
-
+      - run: npm ci
+      - run: npm test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - run: npm ci
+      - run: npm test -- --coverage --run
+      - uses: actions/upload-artifact@v3
+        name: Archive coverage report
+        with:
+          name: coverage-report
+          path: coverage
 # jobs:
 #   build:
 #     runs-on: ubuntu-latest
