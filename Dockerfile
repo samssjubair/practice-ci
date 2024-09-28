@@ -22,6 +22,7 @@ FROM base as test
 
 RUN npm install
 RUN npm install vitest --save-dev
+RUN npm install -g vitest
 
 # # Command to run tests
 CMD ["npm", "run", "test"]
